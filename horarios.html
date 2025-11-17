@@ -7,73 +7,163 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-<style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-    }
 
-    .header {
-        position: fixed; /* ya lo tienes */
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-    }
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    .pdf-viewer {
-        position: fixed;
-        top: 90px; /* baja el PDF para que empiece debajo del header */
-        left: 0;
-        width: 100%;
-        height: calc(100vh - 100px); /* ajusta el alto del visor restando la altura del header */
-        overflow: hidden;
-    }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #0044cc;
+            color: white;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
 
-    .pdf-viewer iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-</style>
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-list li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* PDF container */
+        .pdf-viewer {
+            position: fixed;
+            top: 100px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 100px);
+            overflow: auto;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive móvil */
+        @media screen and (max-width: 768px) {
+            .nav-list {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #0044cc;
+                position: absolute;
+                top: 100px;
+                left: 0;
+                padding: 10px 0;
+            }
+
+            .nav-list.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                color: white;
+                margin-left: auto;
+            }
+
+            .pdf-viewer {
+                top: 100px;
+                height: calc(100vh - 100px);
+            }
+        }
+    </style>
 </head>
 <body>
+
     <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <div class="logo">
-                      <img src="Imagenes/logo de epdb.jpg" alt="Logo del Colegio Renata Preto De Brunelli" class="logo-img">
-                    <h1>Colegio Renata Preto De Brunelli</h1>
-                </div>
-                <nav class="nav">
-                  <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Inicio</a></li>
-                    <li><a href="historia.html" class="nav-link">Historia</a></li>
-                    <li><a href="comunidad.html" class="nav-link active">Comunidad</a></li>
-                    <li><a href="calendario.html" class="nav-link">Calendario</a></li>
-                    <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
-                  </ul>
-                </nav>
-                <div class="mobile-menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
-        </header>
+    <header class="header">
+        <div class="logo">
+            <img src="Imagenes/logo de epdb.jpg" alt="Logo del Colegio Renata Preto De Brunelli">
+            <h1>Colegio Renata Preto De Brunelli</h1>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="historia.html">Historia</a></li>
+                <li><a href="comunidad.html" class="active">Comunidad</a></li>
+                <li><a href="calendario.html">Calendario</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
 
+    <!-- PDF Viewer con PDF.js -->
+    <section class="pdf-viewer" id="pdf-container"></section>
 
-    <!-- PDF full viewport -->
-    <section class="pdf-viewer">
-        <iframe src="Horarios.pdf" type="application/pdf"></iframe>
-    </section>
- <script>
-    const mobileToggle = document.querySelector('.mobile-menu-toggle');
-    const navList = document.querySelector('.nav-list');
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.12.313/pdf.min.js"></script>
+    <script>
+        // Menú móvil
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navList = document.querySelector('.nav-list');
+        mobileToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
 
-    mobileToggle.addEventListener('click', () => {
-        navList.classList.toggle('active');
-    });
-</script>
+        // PDF.js
+        const url = 'Horarios.pdf'; // ruta a tu PDF
+        const container = document.getElementById('pdf-container');
+
+        const loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(pdf => {
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                pdf.getPage(pageNum).then(page => {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale: scale });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    container.appendChild(canvas);
+
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
