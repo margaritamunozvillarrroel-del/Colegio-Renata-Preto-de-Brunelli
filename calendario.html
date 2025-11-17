@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendario Escolar - Colegio Renata Preto De Brunelli</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"> <!-- tu CSS principal -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+  /* ajustes específicos para calendario */
+  .calendar-container{
+    padding: 120px 20px 60px; /* espacio desde el header fijo */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .calendar-panel{
+    background:white;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,68,204,0.1);
+    overflow:hidden;
+    padding:20px;
+  }
+  .calendar-panel .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+  .calendar-panel .title-big{
+    font-size:1.8rem;
+    font-weight:700;
+    color:#0044cc;
+  }
+  .month-controls select,
+  .month-controls button{
+    margin-left:6px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+  }
+  .month-controls select{
+    border:2px solid #0044cc;
+  }
+  .month-controls button{
+    background:#0044cc;
+    color:#ffcc00;
+  }
+  .month-controls button:hover{
+    background:#0066ff;
+  }
+
+  /* TABLA CALENDARIO */
+  table.calendar-table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout: fixed; /* clave para celdas iguales */
+  }
+  table.calendar-table th{
+    background:linear-gradient(135deg,#0044cc,#0066ff);
+    color:#ffcc00;
+    font-weight:600;
+    font-size:14px;
+    padding:10px;
+  }
+  table.calendar-table td{
+    border:1px solid #e0e0e0;
+    vertical-align:top;
+    padding:6px;
+    position:relative;
+    border-radius:10px;
+    background:#fff;
+    aspect-ratio:1 / 1; /* celdas siempre cuadradas */
+  }
+  .daynum{
+    font-weight:700;
+    color:#0044cc;
+    margin-bottom:6px;
+    display:block;
+  }
+  .dot-event{
+    display:inline-block;
+    background:#ffcc00;
+    color:#0044cc;
+    padding:4px 6px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:600;
+    margin-top:4px;
+  }
+
+  /* sidebar */
+  .sidebar{
+    margin-top:20px;
+  }
+  .event-card{
+    background:#0044cc;
+    color:#ffcc00;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:10px;
+    box-shadow:0 5px 20px rgba(0,68,204,0.2);
+  }
+
+  /* responsive */
+  @media (max-width:768px){
+    table.calendar-table td{ aspect-ratio:1 / 1; }
+  }
+  @media (max-width:480px){
+    table.calendar-table td{ aspect-ratio:1 / 1; }
+  }
+
+  /* --- Ajustes para dispositivos móviles --- */
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 100px 10px 40px; /* menos padding */
+  }
+
+  .calendar-panel .content {
+    flex-direction: column; /* columna en móvil */
+    gap: 15px;
+  }
+
+  .calendar-panel table.calendar-table {
+    width: 100%;
+    font-size: 12px; /* texto más pequeño */
+  }
+
+  table.calendar-table th {
+    font-size: 10px; 
+    padding: 6px;
+  }
+
+  table.calendar-table td {
+    padding: 4px;
+    aspect-ratio: 1 / 1; /* celdas cuadradas */
+    font-size: 11px;
+  }
+
+  .daynum {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+
+  .dot-event {
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+
+  .sidebar {
+    flex: 1 1 100%; /* sidebar debajo del calendario */
+  }
+
+  .event-card {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .month-controls select,
+  .month-controls button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .title-big {
+    font-size: 1.4rem;
+  }
+
+  #miniTitle {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+}
+
+/* Ajustes extra para móviles muy pequeños */
+@media (max-width: 480px) {
+  .calendar-panel .content {
+    gap: 10px;
+  }
+
+  .month-controls select,
+  .month-controls button {
+    padding: 3px 6px;
+    font-size: 11px;
+  }
+
+  .event-card {
+    font-size: 11px;
+    padding: 6px;
+  }
+
+  .dot-event {
+    font-size: 9px;
+    padding: 1px 3px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+  <!-- HEADER -->
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                      <img src="Imagenes/logo de epdb.jpg" alt="Logo del Colegio Renata Preto De Brunelli" class="logo-img">
+                    <h1>Colegio Renata Preto De Brunelli</h1>
+                </div>
+                <nav class="nav">
+                  <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="historia.html" class="nav-link">Historia</a></li>
+                    <li><a href="comunidad.html" class="nav-link active">Comunidad</a></li>
+                    <li><a href="horarios.html" class="nav-link">Horarios</a></li>
+                    <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+                  </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+  <!-- CALENDARIO -->
+  <section class="calendar-container">
+    <div class="calendar-panel">
+      <div class="top">
+        <div>
+          <div class="title-big" id="monthYearTitle">Octubre 2025</div>
+          <div style="font-size:13px;color:#666">Actividades y eventos</div>
+        </div>
+        <div class="month-controls">
+          <select id="selectYear" aria-label="Seleccionar año"></select>
+          <select id="selectMonth" aria-label="Seleccionar mes"></select>
+          <button id="prevBtn">◀</button>
+          <button id="nextBtn">▶</button>
+        </div>
+      </div>
+      <div class="content" style="display:flex;flex-wrap:wrap;gap:20px;">
+        <div style="flex:1;min-width:280px;">
+          <table class="calendar-table">
+            <thead>
+              <tr>
+                <th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th>
+              </tr>
+            </thead>
+            <tbody id="calendarBody">
+              <!-- generado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+        <aside class="sidebar" style="flex:0 0 300px;">
+          <div id="miniTitle" style="background:linear-gradient(90deg,#0044cc,#0066ff);color:#ffcc00;padding:10px;border-radius:10px;font-weight:700;text-align:center;margin-bottom:10px;">Oct 2025</div>
+          <div class="events-list" id="eventsList"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      
+      <!-- 1️⃣ Marca del Colegio -->
+      <div class="footer-section footer-brand">
+        <h3>Colegio Renata Preto De Brunelli</h3>
+        <img src="Imagenes/logo de epdb.jpg" alt="Logo del colegio" class="footer-logo-img">
+        <p>Formando líderes del mañana con valores sólidos y educación de excelencia.</p>
+      </div>
+
+      <!-- 2️⃣ Enlaces Rápidos -->
+      <div class="footer-section">
+        <h4>Enlaces Rápidos</h4>
+        <ul>
+          <li><a href="index.html#inicio">Inicio</a></li>
+          <li><a href="index.html#nosotros">Nosotros</a></li>
+          <li><a href="index.html#noticias">Noticias</a></li>
+          <li><a href="index.html#contacto">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- 3️⃣ Contacto -->
+  <div class="footer-section">
+    <h4>Contacto</h4>
+    <div class="footer-contact-item">
+      <i class="fas fa-phone-alt"></i>
+      <span>+591 700-12345</span>
+    </div>
+    <div class="footer-contact-item">
+      <i class="fas fa-envelope"></i>
+      <span>info@renatapretodebrunelli.edu.bo</span>
+    </div>
+  </div>
+
+      <!-- 4️⃣ Redes Sociales -->
+      <div class="footer-section">
+        <h4>Síguenos</h4>
+        <div class="social-links">
+          <a href="https://www.facebook.com/p/Pagina-Oficial-Renata-Preto-De-Brunelli-100057134813709/?locale=es_LA"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Colegio Renata Preto De Brunelli. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+
+  <!-- CALENDARIO JS -->
+  <script>
+  const events = [
+    {date:'2025-10-04', title:'Reunion de Padres', description:'19:00 PM – 20:30 PM'},
+    {date:'2025-10-06', title:'Dia del niño', description:'7:30 AM – 12:00 PM'},
+    {date:'2025-10-20', title:'Reunión Docentes', description:'Sala de profesores 14:00'},
+    {date:'2025-11-20', title:'Reunión Docentes', description:'Sala de profesores 14:00'},
+    {date:'2025-11-23', title:'recaudacion ', description:'en el colegio a la 2'}  
+  ];
+
+  const calendarBody = document.getElementById('calendarBody');
+  const monthYearTitle = document.getElementById('monthYearTitle');
+  const miniTitle = document.getElementById('miniTitle');
+  const eventsList = document.getElementById('eventsList');
+  const selectMonth = document.getElementById('selectMonth');
+  const selectYear = document.getElementById('selectYear');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  let today = new Date();
+  let currentMonth = today.getMonth();
+  let currentYear = today.getFullYear();
+  const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  function pad(n){return n<10?'0'+n:n}
+
+  function initSelectors(){
+    selectMonth.innerHTML = monthNames.map((m,i)=>`<option value="${i}">${m}</option>`).join('');
+    const start = currentYear-3; const end = currentYear+3;
+    let opts = '';
+    for(let y=start;y<=end;y++) opts+=`<option value="${y}">${y}</option>`;
+    selectYear.innerHTML=opts;
+  }
+
+  function getEventsForMonth(year, month){
+    return events.filter(ev=>{ const d=ev.date.split('-'); return Number(d[0])===year && Number(d[1])===month+1; });
+  }
+
+  function renderCalendar(year, month){
+    monthYearTitle.textContent = `${monthNames[month]} ${year}`;
+    miniTitle.textContent = `${monthNames[month].slice(0,3)} ${year}`;
+    const firstDay=new Date(year,month,1).getDay();
+    const daysInMonth=new Date(year,month+1,0).getDate();
+    calendarBody.innerHTML='';
+    let row=document.createElement('tr');
+    for(let i=0;i<firstDay;i++){row.appendChild(document.createElement('td'));}
+    for(let d=1;d<=daysInMonth;d++){
+      const cell=document.createElement('td');
+      const dayNum=document.createElement('span'); dayNum.className='daynum'; dayNum.textContent=d; cell.appendChild(dayNum);
+      const iso=`${year}-${pad(month+1)}-${pad(d)}`;
+      const dayEvents=events.filter(ev=>ev.date===iso);
+      if(dayEvents.length) dayEvents.forEach(ev=>{const dot=document.createElement('div');dot.className='dot-event';dot.textContent=ev.title;cell.appendChild(dot);});
+      row.appendChild(cell);
+      if((d+firstDay)%7===0){calendarBody.appendChild(row); row=document.createElement('tr');}
+    }
+    const cellsInLastRow=row.querySelectorAll('td').length;
+    if(cellsInLastRow>0 && cellsInLastRow<7){for(let i=cellsInLastRow;i<7;i++){row.appendChild(document.createElement('td'));} calendarBody.appendChild(row);}
+    renderEventsSidebar(year, month);
+    selectMonth.value=month;
+    selectYear.value=year;
+  }
+
+  function renderEventsSidebar(year,month){
+    const evs=getEventsForMonth(year,month); eventsList.innerHTML='';
+    if(evs.length===0){eventsList.innerHTML='<div style="padding:10px;color:#666">No hay eventos este mes.</div>'; return;}
+    evs.forEach(ev=>{const card=document.createElement('div');card.className='event-card';card.innerHTML=`<h4>${formatDate(ev.date)} — ${ev.title}</h4><p>${ev.description||''}</p>`; eventsList.appendChild(card);});
+  }
+
+  function formatDate(iso){const [y,m,d]=iso.split('-'); return `${d}/${m}/${y}`;}
+  function prevMonth(){currentMonth--; if(currentMonth<0){currentMonth=11;currentYear--;} renderCalendar(currentYear,currentMonth);}
+  function nextMonth(){currentMonth++; if(currentMonth>11){currentMonth=0;currentYear++;} renderCalendar(currentYear,currentMonth);}
+  prevBtn.addEventListener('click',prevMonth);
+  nextBtn.addEventListener('click',nextMonth);
+  selectMonth.addEventListener('change',(e)=>{currentMonth=Number(e.target.value); renderCalendar(currentYear,currentMonth);});
+  selectYear.addEventListener('change',(e)=>{currentYear=Number(e.target.value); renderCalendar(currentYear,currentMonth);});
+  initSelectors();
+  selectMonth.value=currentMonth;
+  selectYear.value=currentYear;
+  renderCalendar(currentYear,currentMonth);
+  </script>
+ <script>
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navList = document.querySelector('.nav-list');
+
+    mobileToggle.addEventListener('click', () => {
+        navList.classList.toggle('active');
+    });
+</script>
+
+</body>
+</html>

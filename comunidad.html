@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidad - Colegio Renata Preto De Brunelli</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+  }
+
+  .header {
+    border: none;
+    box-shadow: none;
+    margin: 0;
+  }
+   
+
+  main {
+    margin-top: 40px; 
+  }
+
+  .community-section {
+    padding: 80px 0;
+    background: #f8f9ff;
+  }
+
+  .community-section:nth-child(even) {
+    background: #ffffff;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .community-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  .community-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 68, 204, 0.2);
+  }
+
+  .community-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center top; /* centra el rostro */
+  }
+
+  .community-card .info {
+    padding: 1rem;
+  }
+
+  .community-card h4 {
+    color: #0044cc;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .community-card p {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .year-title {
+    font-size: 1.5rem;
+    color: #0044cc;
+    font-weight: 600;
+    text-align: center;
+    margin: 2rem 0 1rem;
+  }
+ 
+  /* Ajustes para móviles */
+@media (max-width: 768px) {
+  .community-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* más pequeño */
+    gap: 1rem; /* menos espacio entre tarjetas */
+  }
+
+  .community-card img {
+    height: 180px; /* reduce la altura de la imagen */
+  }
+
+  .community-card .info h4 {
+    font-size: 1rem; /* reduce el tamaño del nombre */
+  }
+
+  .community-card .info p {
+    font-size: 0.8rem; /* reduce el tamaño del texto del puesto */
+  }
+}
+
+</style>
+</head>
+<body>
+
+
+
+  <!-- HEADER -->
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                      <img src="Imagenes/logo de epdb.jpg" alt="Logo del Colegio Renata Preto De Brunelli" class="logo-img">
+                    <h1>Colegio Renata Preto De Brunelli</h1>
+                </div>
+                <nav class="nav">
+                  <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="historia.html" class="nav-link">Historia</a></li>
+                    <li><a href="calendario.html" class="nav-link active">Calendario</a></li>
+                    <li><a href="horarios.html" class="nav-link">Horarios</a></li>
+                    <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+                  </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+  <main>
+
+       <!-- FUNDADOR -->
+    <section class="community-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Fundador</h2>
+          <p class="section-subtitle">El visionario que dio inicio a nuestra institución educativa.</p>
+        </div>
+        <div class="community-grid" style="justify-items:center;">
+          <div class="community-card" style="max-width:350px;">
+            <img src="Imagenes/Padre vicente 2.png" alt="Fundador">
+            <div class="info">
+              <h4>Padre Vicente Brunelli</h4>
+              <p>Fundador del Colegio</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIRECTOR -->
+    <section class="community-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Director</h2>
+          <p class="section-subtitle">Nuestro líder académico y formador de generaciones.</p>
+        </div>
+        <div class="community-grid" style="justify-items:center;">
+          <div class="community-card" style="max-width:350px;">
+            <img src="Imagenes/Director.png" alt="Director">
+            <div class="info">
+              <h4>Dir.Jose Luis</h4>
+              <p>Director General</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCENTES -->
+    <section class="community-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Docentes</h2>
+          <p class="section-subtitle">Equipo comprometido con la excelencia educativa.</p>
+        </div>
+        <div class="community-grid">
+          
+          <div class="community-card">
+            <img src="Imagenes/Prof Santiago.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Santiago</h4>
+              <p>Quimica y Fisica</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Prof jenny.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Jenny</h4>
+              <p>Lenguaje</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Profesora Vanessa.jpeg" alt="Docente">
+            <div class="info">
+              <h4>Prof. Vannessa</h4>
+              <p>Ciencias Sociales</p>
+            </div>
+          </div>
+           
+          <div class="community-card">
+            <img src="Imagenes/prof de ingles.jpeg" alt="Docente">
+            <div class="info">
+              <h4>Prof. katherin </h4>
+              <p>Ingles</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Prof musica.jpeg" alt="Docente">
+            <div class="info">
+              <h4>Prof. Julian </h4>
+              <p>Musica</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Prof marta.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Marta </h4>
+              <p>Profesora de Primaria</p>
+            </div>
+          </div>
+          
+          <div class="community-card">
+            <img src="Imagenes/prof David.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. David </h4>
+              <p>Matemáticas y Fisica</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/prof celia .png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Celia</h4>
+              <p>Valores espiritualidades y religiones </p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/profe zulema.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Zulema</h4>
+              <p>Profesora de primaria</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/prof veronica.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Veronica</h4>
+              <p>Profesora de inicial</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Profe raquel.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Raquel</h4>
+              <p>Profesora de inicial</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Profesor hugo.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Hugo</h4>
+              <p>Profesor de Primaria</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Profesor Aylin.png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Aylin</h4>
+              <p>Profesora de Primaria</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Prof maria misericordia .png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Maria Misericordia </h4>
+              <p>Profesora de Primaria</p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/prof yudith .png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Judith</h4>
+              <p>Educacion Fisica</p>
+            </div>
+          </div> 
+
+          <div class="community-card">
+            <img src="Imagenes/prof noemi .png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Noemi</h4>
+              <p>Lenguaje</p>
+            </div>
+          </div>
+           
+          <div class="community-card">
+            <img src="img/docente1.jpg" alt="Docente">
+            <div class="info">
+              <h4>Prof. Cristina</h4>
+              <p>Sistemas Informaticos  </p>
+            </div>
+          </div>
+
+          <div class="community-card">
+            <img src="Imagenes/Prof maria del carmen .png" alt="Docente">
+            <div class="info">
+              <h4>Prof. Maria del Carmen</h4>
+              <p>Biologia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EX PROMOCIONES -->
+    <section class="community-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Ex Promociones</h2>
+          <p class="section-subtitle">Orgullo del Colegio Renata Preto De Brunelli.</p>
+        </div>
+
+        <!-- Años 2018 - 2024 -->
+        <div>
+          <div class="year-title">Promoción 2024</div>
+          <div class="community-grid">
+            <div class="community-card"><img src="Imagenes/promo 2024 1.png" alt=""></div>
+            <div class="community-card"><img src="Imagenes/promo 2024 2.png" alt=""></div>
+            <div class="community-card"><img src="Imagenes/promo 2024 3.png" alt=""></div>
+          </div>
+
+          <div class="year-title">Promoción 2022</div>
+          <div class="community-grid">
+            <div class="community-card"><img src="Imagenes/promo 2022 1.png" alt=""></div>
+            <div class="community-card"><img src="Imagenes/promo 2022 2.png" alt=""></div>
+            <div class="community-card"><img src="Imagenes/promo 2022 3.png" alt=""></div>
+          </div>
+
+          <div class="year-title">Promoción 2020</div>
+          <div class="community-grid">
+            <div class="community-card"><img src="Imagenes/promo 2020 1.png" alt=""></div>
+            <div class="community-card"><img src="Imagenes/promo 2020 2.png" alt=""></div>
+            <div class="community-card"><img src="Imagenes/promo 2020 3.png" alt=""></div>
+          </div>
+
+          <div class="year-title">Promoción 2018</div>
+          <div class="community-grid">
+            <div class="community-card"><img src="Imagenes/promo 2018 1.png" alt=""></div>
+            <div class="community-card"><img src="Imagenes/promo 2018 2.png" alt=""></div>
+            <div class="community-card"><img src="Imagenes/promo 2018 3.png" alt=""></div>
+          </div>
+         </div>
+    <!-- VOLUNTARIADO -->
+    <section class="community-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Voluntariado</h2>
+          <p class="section-subtitle">Comprometidos con la comunidad y el servicio.</p>
+        </div>
+        <div class="community-grid">
+          <div class="community-card"><img src="Imagenes/voluntariado 1.png" alt=""></div>
+          <div class="community-card"><img src="Imagenes/voluntariado 2.png" alt=""></div>
+          <div class="community-card"><img src="Imagenes/voluntariado 3.png" alt=""></div>
+          <div class="community-card"><img src="Imagenes/voluntariado 4.png" alt=""></div>
+          <div class="community-card"><img src="Imagenes/voluntariado 5.png" alt=""></div>
+          <div class="community-card"><img src="Imagenes/voluntariado 6.png" alt=""></div>
+          <div class="community-card"><img src="Imagenes/voluntariado 7.png" alt=""></div>
+          <div class="community-card"><img src="Imagenes/voluntariado 8.png" alt=""></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (sin cambios) -->
+  <footer class="footer">
+  <div class="container footer-content">
+    
+    <!-- 1️⃣ Marca del Colegio -->
+    <div class="footer-section footer-brand">
+      <h3>Colegio Renata Preto De Brunelli</h3>
+      <img src="Imagenes/logo de epdb.jpg" alt="Logo del colegio" class="footer-logo-img">
+      <p>Formando líderes del mañana con valores sólidos y educación de excelencia.</p>
+    </div>
+
+    <!-- 2️⃣ Enlaces Rápidos -->
+    <div class="footer-section">
+      <h4>Enlaces Rápidos</h4>
+      <ul>
+        <li><a href="index.html#inicio">Inicio</a></li>
+        <li><a href="index.html#nosotros">Nosotros</a></li>
+        <li><a href="index.html#noticias">Noticias</a></li>
+        <li><a href="index.html#contacto">Contacto</a></li>
+      </ul>
+    </div>
+
+    <!-- 3️⃣ Contacto -->
+ <div class="footer-section">
+  <h4>Contacto</h4>
+  <div class="footer-contact-item">
+    <i class="fas fa-phone-alt"></i>
+    <span>+591 700-12345</span>
+  </div>
+  <div class="footer-contact-item">
+    <i class="fas fa-envelope"></i>
+    <span>info@renatapretodebrunelli.edu.bo</span>
+  </div>
+ </div>
+
+    <!-- 4️⃣ Redes Sociales -->
+    <div class="footer-section">
+      <h4>Síguenos</h4>
+      <div class="social-links">
+        <a href="https://www.facebook.com/p/Pagina-Oficial-Renata-Preto-De-Brunelli-100057134813709/?locale=es_LA"><i class="fab fa-facebook"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Colegio Renata Preto De Brunelli. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navList = document.querySelector('.nav-list');
+
+    mobileToggle.addEventListener('click', () => {
+        navList.classList.toggle('active');
+    });
+</script> 
+
+</body>
+</html>
